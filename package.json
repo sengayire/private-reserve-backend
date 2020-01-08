@@ -54,6 +54,7 @@
     "swagger": "^0.7.5",
     "swagger-jsdoc": "^3.5.0",
     "swagger-ui-express": "^4.1.2",
+    "uuid": "^3.3.3",
     "yc": "^0.0.2"
   }
 }
