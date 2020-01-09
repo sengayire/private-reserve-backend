@@ -1,5 +1,4 @@
 import app from './app';
-// import socketIO from './helpers/socketIO';
 /**
  * Normalize a port into a number, string, or false.
  * @param {int} val The port number.
@@ -59,7 +58,5 @@ function onError(error) {
 const server = app.server.listen(port, () => {
   process.stdout.write(`Server is running on port: ${port}\n`);
 });
-
-// socketIO(server);
 
 app.server.on('error', onError);

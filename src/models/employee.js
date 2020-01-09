@@ -2,7 +2,8 @@
 module.exports = (sequelize, DataTypes) => {
   const Employee = sequelize.define('Employee', {
     id: {
-			allowNull: false,
+      allowNull: false,
+      autoIncrement: true,
 			primaryKey: true,
       type: DataTypes.INTEGER,
       unique: true
@@ -44,6 +45,14 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: 'developer'
     },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE
+    }
   }, {});
   Employee.associate = function(models) {
     // associations can be defined here
