@@ -6,7 +6,6 @@ import db from '../../models';
  */
 export default async (condition = {}) => {
   try {
-      console.log('errors', condition);
     const user = Object.keys(condition).length
     ? await db.Employee.findOne({
         where: condition,

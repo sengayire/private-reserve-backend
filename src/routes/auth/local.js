@@ -17,7 +17,10 @@ router.post(
 );
 
 // user login route
-// router.post('/login', validateLogin, isActiveUser, AuthLocalController.login);
+router.post('/login',
+//  validateLogin,
+//  isActiveUser, 
+UsersController.login);
 
 router.get('/activate/:token', verifyToken, UsersController.activate);
 
