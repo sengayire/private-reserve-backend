@@ -21,6 +21,10 @@ export default {
         allowNull: false,
         unique: true
       },
+      password: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
       dateOfBirth: {
         type: Sequelize.DATE,
         allowNull: true

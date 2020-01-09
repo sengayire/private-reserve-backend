@@ -27,10 +27,11 @@ static async create(req, res) {
   }
 
   static async activate(req, res) {
-    const { id} = req.params;
-    const updated = await Employee.update({ status: 'active' }, { id });
+    const { params:{id}, user: {email}} = req;
+    const condition = id || email;
+    const updated = await Employee.update({ status: 'active' }, {email }||{id});
     return updated ? res.status(status.OK).json({
-      message: `Employee's account ${id} has been activated`
+      message: `Account activated successfully`
     })
     : res.status(status.SERVER_ERROR).json({
       error: 'Employee account has not updated'
@@ -66,7 +67,7 @@ static async create(req, res) {
   }
 
   static async deleteEmployeeAccount(req, res) {
-    const { id } = req.params;
+    const { ids } = req.params;
     const deleteEmployee = await Employee.deleteEmployee({id});
     return deleteEmployee
       ? res.status(status.OK).json({ message: `Employee ${id} account has deleted successfully `})
@@ -85,7 +86,7 @@ static async create(req, res) {
     req.body.password = helper.password.hash(req.body.password);
     const newUser = await Employee.create(req.body);
     const errors = newUser.errors ? helper.checkCreateOrUpdateEmployee(newUser.errors) : null;
-
+  
     return errors
       ? res.status(errors.code).json({ errors: errors.errors })
       : (await helper.sendMail(email, 'signup', { email, firstName, lastName }))
