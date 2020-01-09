@@ -21,13 +21,13 @@ const router = Router();
 //   UserController.update
 // ); // update user profile
 
-// router.get(
-//   '/username/:username',
-//   verifyToken,
-//   verifyAdmin,
-//   checkUpdateUserPermission,
-//   UserController.getAllByUsername
-// );
+router.get(
+  '/search',
+  // verifyToken,
+  // verifyAdmin,
+  // checkUpdateUserPermission,
+  UsersController.searchEmployee
+);
 // router.get('/email/confirm/:token', verifyToken, UserController.confirmEmailUpdate); // confirm email update
 // router.get('/authors', verifyToken, asyncHandler(UserController.getAllAuthors));
 router.put(

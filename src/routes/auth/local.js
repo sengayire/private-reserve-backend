@@ -1,30 +1,30 @@
-// import express from 'express';
-// import AuthLocalController from '../../controllers/AuthLocalController';
+import express from 'express';
+import UsersController from '../../controllers/UsersController';
 // import asyncHandler from '../../middlewares/asyncHandler';
-// import verifyToken from '../../middlewares/verifyToken';
+import verifyToken from '../../middlewares/verifyToken';
 // import validateUser from '../../middlewares/validateUser';
 // import validateLogin from '../../middlewares/validateLogin';
-// import isActiveUser from '../../middlewares/isActiveUser';
-// import checkSingUpPermission from '../../middlewares/checkSignUpPermission';
+import isActiveUser from '../../middlewares/isActiveUser';
+import checkSingUpPermission from '../../middlewares/checkSignUpPermission';
 
-// const router = express.Router();
+const router = express.Router();
 
-// router.post(
-//   '/signup',
-//   checkSingUpPermission,
-//   validateUser,
-//   asyncHandler(AuthLocalController.signup)
-// );
+router.post(
+  '/signup',
+  checkSingUpPermission,
+  validateUser,
+  asyncHandler(AuthLocalController.signup)
+);
 
-// // user login route
-// router.post('/login', validateLogin, isActiveUser, AuthLocalController.login);
+// user login route
+router.post('/login', validateLogin, isActiveUser, AuthLocalController.login);
 
-// // activate user account
-// router.get('/activate/:token', verifyToken, AuthLocalController.activate);
+// activate user account
+router.get('/activate/:token', verifyToken, AuthLocalController.activate);
 
-// // Reset password
-// router.get('/reset/:token', asyncHandler(AuthLocalController.reset));
-// router.post('/reset', asyncHandler(AuthLocalController.sendEmail));
-// router.patch('/reset/:token', asyncHandler(AuthLocalController.updatePassword));
+// Reset password
+router.get('/reset/:token', asyncHandler(AuthLocalController.reset));
+router.post('/reset', asyncHandler(AuthLocalController.sendEmail));
+router.patch('/reset/:token', asyncHandler(AuthLocalController.updatePassword));
 
-// export default router;
+export default router;

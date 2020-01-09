@@ -72,5 +72,28 @@ static async create(req, res) {
       ? res.status(status.OK).json({ message: `Employee ${id} account has deleted successfully `})
       : res.status(status.UNAUTHORIZED).json({ errors: 'Employee account not deleted' });
   }
+
+  static async searchEmployee(req, res) {
+    const searchEmployee = await Employee.findOne(req.body);
+    return !searchEmployee.errors && Object.keys(searchEmployee).length 
+      ? res.status(status.OK).json({ employee: searchEmployee })
+      : res.status(status.UNAUTHORIZED).json({ errors: 'Employee not found' });
+  }
+
+  static async signup(req, res) {
+    const { email, firstName, lastName } = req.body;
+    req.body.password = helper.password.hash(req.body.password);
+    const newUser = await Employee.create(req.body);
+    const errors = newUser.errors ? helper.checkCreateOrUpdateEmployee(newUser.errors) : null;
+
+    return errors
+      ? res.status(errors.code).json({ errors: errors.errors })
+      : (await helper.sendMail(email, 'signup', { email, firstName, lastName }))
+          && res.status(status.CREATED).json({
+            message: 'check your email to activate your account',
+            user: newUser
+          });
+  }
+
 }
 
