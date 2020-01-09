@@ -4,6 +4,7 @@ export default {
     return queryInterface.createTable('Employees', {
       id: {
         allowNull: false,
+        autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
@@ -17,10 +18,20 @@ export default {
       },
       email: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
+      },
+      dateOfBirth: {
+        type: Sequelize.DATE,
+        allowNull: true
+      },
+      status: {
+        type: Sequelize.ENUM('active', 'inactive'),
+        allowNull: false,
+        defaultValue: 'inactive'
       },
       nationalID: {
-        type: Sequelize.DATE,
+        type: Sequelize.STRING,
         allowNull: true
       },
       phoneNumber: {
@@ -32,6 +43,14 @@ export default {
         allowNull: false,
         defaultValue: 'developer'
       },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      }
     });
   },
   down: (queryInterface, Sequelize) => {
