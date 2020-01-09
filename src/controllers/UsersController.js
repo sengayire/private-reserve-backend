@@ -140,13 +140,32 @@ static async create(req, res) {
       return res.status(status.BAD_REQUEST).json({ message: isPasswordValid[0] });
     }
     const { email } = helper.token.decode(token);
-    const isUpdated = await User.update({ password: helper.password.hash(passwordOne) }, { email });
+    const isUpdated = await Employee.update({ password: helper.password.hash(passwordOne) }, { email });
     delete isUpdated.password;
     return isUpdated
       ? res
         .status(status.OK)
-        .json({ isUpdated, message: 'Success! your password has been changed.' })
+        .json({ isUpdated, message: 'Success!!! your password has been changed.' })
       : res.status(status.NOT_MODIFIED).json({ errors: 'Password not updated' });
+  }
+
+  static async sendEmail(req, res) {
+    const { email } = req.body;
+    const result = await Employee.findOne({ email }); 
+    if (Object.keys(result).length <= 0) {
+      return res.status(status.NOT_FOUND).json({
+        errors: 'email not found..'
+      });
+    }
+
+    await helper.sendMail(email, 'resetPassword', {
+      email,
+      names: `${result.firstName} ${result.lastName}`
+    }); 
+
+    return res.status(status.OK).json({
+      message: 'Email sent, please check your email to reset the password'
+    });
   }
 }
 

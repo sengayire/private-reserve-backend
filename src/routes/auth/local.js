@@ -25,8 +25,8 @@ UsersController.login);
 router.get('/activate/:token', verifyToken, UsersController.activate);
 
 // // Reset password
-// router.get('/reset/:token', asyncHandler(AuthLocalController.reset));
-// router.post('/reset', asyncHandler(AuthLocalController.sendEmail));
-// router.patch('/reset/:token', asyncHandler(AuthLocalController.updatePassword));
+// router.get('/reset/:token', asyncHandler(UsersController.reset));
+router.post('/reset', asyncHandler(UsersController.sendEmail));
+router.patch('/reset/:token', asyncHandler(UsersController.updatePassword));
 
 export default router;
