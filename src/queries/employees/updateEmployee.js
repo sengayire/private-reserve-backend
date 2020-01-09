@@ -7,7 +7,6 @@ import db from '../../models';
  * when successfully updated otherwise false
  */
 export default async (value = {}, condition = {}) => {
-  console.log('condition', condition);
   try {
     const updatedEmployee = await db.Employee.update(value, {
       where: condition,
