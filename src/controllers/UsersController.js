@@ -86,7 +86,7 @@ static async create(req, res) {
     req.body.password = helper.password.hash(req.body.password);
     const newUser = await Employee.create(req.body);
     const errors = newUser.errors ? helper.checkCreateOrUpdateEmployee(newUser.errors) : null;
-  
+     delete newUser.password;
     return errors
       ? res.status(errors.code).json({ errors: errors.errors })
       : (await helper.sendMail(email, 'signup', { email, firstName, lastName }))
@@ -96,5 +96,58 @@ static async create(req, res) {
           });
   }
 
+  static async login(req, res) {
+    const { email, password } = req.body;
+    const checkUser = await Employee.findOne({ email });
+    if (Object.keys(checkUser).length > 0) {
+      const comparePassword = helper.password.compare(password, checkUser.password || '');
+      if (!comparePassword) {
+        return res.status(status.UNAUTHORIZED).json({
+          errors: { credentials: 'The credentials you provided are incorrect' }
+        });
+      }
+      const payload = {
+        id: checkUser.id,
+        role: checkUser.role,
+        permissions: checkUser.permissions
+      };
+      const token = helper.token.generate(payload);
+      delete checkUser.password;
+      return res.status(status.OK).json({
+        message: 'signIn successfully',
+        user: checkUser,
+        token
+      });
+    }
+  }
+
+  static async updatePassword(req, res) {
+    const token = req.body.token || req.params.token;
+    const { passwordOne, passwordTwo } = req.body;
+
+    if (passwordOne !== passwordTwo) {
+      return res.status(status.BAD_REQUEST).json({ errors: 'Passwords are not matching' });
+    }
+
+    if (!req.body.passwordOne || !req.body.passwordTwo) {
+      return res.status(status.BAD_REQUEST).json({ errors: 'the password can not be empty' });
+    }
+
+    const isPasswordValid = validate.password(passwordOne, 'required');
+    const isPasswordValidTwo = validate.password(passwordTwo, 'required');
+
+    if (isPasswordValid.length || isPasswordValidTwo.length) {
+      return res.status(status.BAD_REQUEST).json({ message: isPasswordValid[0] });
+    }
+    const { email } = helper.token.decode(token);
+    const isUpdated = await User.update({ password: helper.password.hash(passwordOne) }, { email });
+    delete isUpdated.password;
+    return isUpdated
+      ? res
+        .status(status.OK)
+        .json({ isUpdated, message: 'Success! your password has been changed.' })
+      : res.status(status.NOT_MODIFIED).json({ errors: 'Password not updated' });
+  }
 }
+
 
