@@ -1,5 +1,5 @@
-import * as Employee from './employees';
+import * as User from './users';
 
 export {
-    Employee
+    User
 }
