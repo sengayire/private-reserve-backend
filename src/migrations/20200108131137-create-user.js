@@ -1,7 +1,7 @@
 
 export default {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Employees', {
+    return queryInterface.createTable('Users', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -21,31 +21,22 @@ export default {
         allowNull: false,
         unique: true
       },
+      username: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true
+      },
       password: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      dateOfBirth: {
-        type: Sequelize.DATE,
-        allowNull: true
-      },
-      status: {
-        type: Sequelize.ENUM('active', 'inactive'),
-        allowNull: false,
-        defaultValue: 'inactive'
-      },
-      nationalID: {
-        type: Sequelize.STRING,
-        allowNull: true
+      pin: {
+        type: Sequelize.INTEGER,
+        allowNull: false
       },
       phoneNumber: {
         type: Sequelize.INTEGER,
-        allowNull: true
-      },
-      position: {
-        type: Sequelize.ENUM('manager', 'developer', 'designer'),
-        allowNull: false,
-        defaultValue: 'developer'
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
@@ -58,6 +49,6 @@ export default {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Employees');
+    return queryInterface.dropTable('Users');
   }
 };

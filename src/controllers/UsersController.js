@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import { Employee } from '../queries';
+import { User } from '../queries';
 import * as helper from '../helpers';
 import status from '../config/status';
 import * as validate from '../helpers/validation';
@@ -83,8 +83,9 @@ static async create(req, res) {
 
   static async signup(req, res) {
     const { email, firstName, lastName } = req.body;
+    console.log('request', req.body)
     req.body.password = helper.password.hash(req.body.password);
-    const newUser = await Employee.create(req.body);
+    const newUser = await User.create(req.body);
     const errors = newUser.errors ? helper.checkCreateOrUpdateEmployee(newUser.errors) : null;
      delete newUser.password;
     return errors
@@ -98,8 +99,8 @@ static async create(req, res) {
 
   static async login(req, res) {
     const { email, password } = req.body;
-    const checkUser = await Employee.findOne({ email });
-    if (Object.keys(checkUser).length > 0) {
+    const checkUser = await User.findOne({ email });
+    if (Object.keys(checkUser).length) {
       const comparePassword = helper.password.compare(password, checkUser.password || '');
       if (!comparePassword) {
         return res.status(status.UNAUTHORIZED).json({
@@ -119,6 +120,9 @@ static async create(req, res) {
         token
       });
     }
+    return res.status(status.UNAUTHORIZED).json({
+      errors: { credentials: 'The credentials you provided are incorrect' }
+    });
   }
 
   static async updatePassword(req, res) {

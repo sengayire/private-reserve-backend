@@ -7,7 +7,7 @@ import db from '../../models';
 export default async (condition = {}) => {
   try {
     const user = Object.keys(condition).length
-    ? await db.Employee.findOne({
+    ? await db.User.findOne({
         where: condition,
         logging: false
     })

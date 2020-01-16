@@ -1,14 +1,13 @@
 import db from '../../models';
 
 /**
- * @param {object} employee
+ * @param {object} user
  * @returns {object} an object containing the information of the employee or null
  */
-export default async (employee = {}) => {
+export default async (user = {}) => {
   try {
-    const newEmployee = await db.Employee.create(employee, { logging: false });
-
-    return newEmployee.dataValues;
+    const newUser = await db.User.create(user, { logging: false });
+    return newUser.dataValues;
   } catch (error) {
     return {
       errors: error

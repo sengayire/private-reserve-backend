@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const Employee = sequelize.define('Employee', {
+  const User = sequelize.define('User', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -21,33 +21,22 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       unique: true
     },
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true
+    },
     password: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    dateOfBirth: {
-      type: DataTypes.DATE,
+    pin: {
+      type: DataTypes.INTEGER,
       allowNull: true
-    },
-    status: {
-      type: DataTypes.ENUM('active', 'inactive'),
-      allowNull: false,
-      defaultValue: 'inactive'
-    },
-    nationalID: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      unique: true
     },
     phoneNumber: {
       type: DataTypes.INTEGER,
-      allowNull: true,
-      unique: true
-    },
-    position: {
-      type: DataTypes.ENUM('manager', 'developer', 'designer'),
-      allowNull: false,
-      defaultValue: 'developer'
+      allowNull: true
     },
     createdAt: {
       allowNull: false,
@@ -58,8 +47,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE
     }
   }, {});
-  Employee.associate = function(models) {
+  User.associate = function(models) {
     // associations can be defined here
   };
-  return Employee;
+  return User;
 };
