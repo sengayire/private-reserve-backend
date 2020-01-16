@@ -1,29 +1,17 @@
 import 'dotenv/config';
-import { User } from '../queries';
+import { User, Profile } from '../queries';
 import * as helper from '../helpers';
 import status from '../config/status';
 import * as validate from '../helpers/validation';
 
 export default class UsersController {
 static async create(req, res) {
-    const { 
-        firstName, 
-        lastName,
-        email 
-        } = req.body;
-    const newEmployee = await Employee.create(req.body);
-    if (newEmployee.errors) {
-      const errors = helper.checkCreateOrUpdateEmployee(newEmployee.errors);
-      const { code } = errors;
-      delete errors.code;
-      return res.status(code).json(errors);
-    }
-    if (newEmployee) {
-      await helper.sendMail(email, 'newEmployee', { email, firstName, lastName });
-      return res.status(status.CREATED).json({
-        message: `Information message sent to ${req.body.email}`
-      });
-    }
+    const newProfile = await Profile.create(req.body);
+    return !newProfile.errors ? res.status(status.CREATED).json({
+        message: `Information saved successfully`
+      }) : res.status(status.BAD_REQUEST).json({
+        error: 'Information have not saved '
+      })
   }
 
   static async activate(req, res) {
