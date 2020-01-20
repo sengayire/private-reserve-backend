@@ -10,13 +10,21 @@ static async create(req, res) {
     return !newProfile.errors ? res.status(status.CREATED).json({
         message: `Information saved successfully`
       }) : res.status(status.BAD_REQUEST).json({
-        error: 'Information have not saved '
+        errors: 'Information have not saved '
+      })
+  }
+
+  static async adDetails(req, res) {
+    const newProfile = await Profile.create(req.body);
+    return !newProfile.errors ? res.status(status.CREATED).json({
+        message: `Information saved successfully`
+      }) : res.status(status.BAD_REQUEST).json({
+        errors: 'Information have not saved '
       })
   }
 
   static async activate(req, res) {
     const { params:{id}, user: {email}} = req;
-    const condition = id || email;
     const updated = await Employee.update({ status: 'active' }, {email }||{id});
     return updated ? res.status(status.OK).json({
       message: `Account activated successfully`
@@ -71,7 +79,6 @@ static async create(req, res) {
 
   static async signup(req, res) {
     const { email, firstName, lastName } = req.body;
-    console.log('request', req.body)
     req.body.password = helper.password.hash(req.body.password);
     const newUser = await User.create(req.body);
     const errors = newUser.errors ? helper.checkCreateOrUpdateEmployee(newUser.errors) : null;
