@@ -4,10 +4,11 @@ import { generate as generateToken } from '../../tokens';
 dotenv.config();
 
 export default (data) => {
+  console.log('data', data)
   const message = {};
   const token = generateToken({ email: data.email }, { expiresIn: '1h' });
   const appUrl = process.env.APP_URL_FRONTEND;
-  const link = `${appUrl}/auth/reset/${token}`;
+  const link = `${appUrl}/reset-password/${token}`;
   message.subject = 'Reset your password - Authors Haven';
   message.html = `Hello ${data.names} </br>,
   <p>You are receiving this because you have requested to reset your password,<br>

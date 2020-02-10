@@ -1,4 +1,3 @@
-
 export default {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('Profiles', {
@@ -10,11 +9,11 @@ export default {
       },
       adProfile: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true,
       },
       advertName: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
       tagline: {
         type: Sequelize.STRING,
@@ -26,42 +25,42 @@ export default {
       },
       gender: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
       email: {
-        type: Sequelize.INTEGER,
-        allowNull: false
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       phoneNumber: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
       },
       country: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true
+        unique: true,
       },
       city: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true
+        unique: true,
       },
       images: {
-        type: Sequelize.STRING,
+        type: Sequelize.ARRAY(Sequelize.STRING),
         allowNull: false,
-        unique: true
+        unique: true,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   down: (queryInterface, Sequelize) => {
     return queryInterface.dropTable('Profiles');
-  }
+  },
 };
