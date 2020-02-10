@@ -15,23 +15,23 @@ export default async (to, action, data) => {
     to,
     from: EMAIL_SENDER,
     subject: notifier.subject,
-    text: 'Awesomity',
+    text: 'Private Reserve',
     html: `<div style="background:#e5eeff;width:100%;padding:20px 0;">
-          <div style="max-width:760px;margin:0 auto;background:#ffffff">
-          <div style="background:#266cef;padding:10px;color:#ffffff;text-align:center;font-size:34px">
-          Awesomity- Developers
+          <div style="max-width:760px;margin:0 auto;background: #eebd22">
+          <div style="background: #313030;padding:10px;color:#ffffff;text-align:center;font-size:34px">
+           Private Reserve- Developers
           </div>
           <div style="padding:20px;text-align:left;">
           ${notifier.html}
           </div>
           <br>
           <div style="padding:20px;text-align:left;">
-          <b> Awesomity, @Developers team</b>
+          <b> Private Reserve, @Developers team</b>
           </div>
           </div>
           <div style="padding:35px 10px;text-align:center;">
           Copyright, 2019<br>
-           Awesomity, Rwanda
+           Private Reserve, Canada
           </div>
           </div>`
   };

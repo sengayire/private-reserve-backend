@@ -26,7 +26,7 @@ router.get(
   // verifyToken,
   // verifyAdmin,
   // checkUpdateUserPermission,
-  UsersController.searchEmployee
+  UsersController.searchEmployee,
 );
 // router.get('/email/confirm/:token', verifyToken, UserController.confirmEmailUpdate); // confirm email update
 // router.get('/authors', verifyToken, asyncHandler(UserController.getAllAuthors));
@@ -37,7 +37,7 @@ router.put(
   // isActiveUser,
   // checkUpdateUserPermission,
   // checkUpdateUser,
-  UsersController.update
+  UsersController.update,
 );
 
 // router.get('/', verifyToken, verifyAdmin, asyncHandler(UserController.getAll));
@@ -51,24 +51,37 @@ router.delete(
   // verifyToken,
   // checkUpdateUserPermission,
   // isActiveUser,
-  UsersController.deleteEmployeeAccount
+  UsersController.deleteEmployeeAccount,
 );
 // router.patch('/:username/unfollow', verifyToken, UserController.unfollow);
 
 // router.get('/:id', verifyToken, verifyAdmin, checkUpdateUserPermission, AuthLocalController.getOne);
 router.post(
-  '/',
-//   verifyToken,
-//   verifyAdmin,
-//   validateUser,
-//   checkSignUpPermission,
-  UsersController.create
+  '/post/about',
+  //   verifyToken,
+  //   verifyAdmin,
+  //   validateUser,
+  //   checkSignUpPermission,
+  UsersController.create,
 );
-router.put('/:id/activate/',
-//  verifyToken,
-UsersController.activate);
-router.put('/:id/suspend/',
-//  verifyToken,
-UsersController.suspend);
+
+router.post(
+  '/post/details',
+  //   verifyToken,
+  //   verifyAdmin,
+  //   validateUser,
+  //   checkSignUpPermission,
+  UsersController.createAdDetails,
+);
+router.put(
+  '/:id/activate/',
+  //  verifyToken,
+  UsersController.activate,
+);
+router.put(
+  '/:id/suspend/',
+  //  verifyToken,
+  UsersController.suspend,
+);
 // router.patch('/:username/follow', verifyToken, isActiveUser, UserController.follow);
 export default router;
