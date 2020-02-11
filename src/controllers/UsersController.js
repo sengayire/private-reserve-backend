@@ -7,7 +7,7 @@ import * as validate from '../helpers/validation';
 export default class UsersController {
   static async create(req, res) {
     const newProfile = await Profile.create(req.body);
-    console.log('profile', newProfile);
+    console.log('profile', req.body);
     return !newProfile.errors
       ? res.status(status.CREATED).json({
           message: `Information saved successfully`,
@@ -19,7 +19,6 @@ export default class UsersController {
 
   static async createAdDetails(req, res) {
     const adDetails = await Profile.adDetails(req.body);
-    console.log('adDetails', adDetails);
     return !adDetails.errors
       ? res.status(status.CREATED).json({
           message: `Information saved successfully`,

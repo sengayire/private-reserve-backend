@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       advertName: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       tagline: {
         type: DataTypes.STRING,
@@ -24,30 +24,30 @@ module.exports = (sequelize, DataTypes) => {
       },
       age: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
       },
       gender: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       email: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       phoneNumber: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
       },
       country: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       city: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       images: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
+        type: DataTypes.ARRAY(DataTypes.STRING(1000)),
         allowNull: true,
       },
       createdAt: {

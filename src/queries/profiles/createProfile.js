@@ -10,7 +10,7 @@ export default async (profile = {}) => {
     return newProfile.dataValues;
   } catch (error) {
     return {
-      errors: error
+      errors: error,
     };
   }
 };

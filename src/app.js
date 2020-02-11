@@ -7,6 +7,7 @@ import cors from 'cors';
 import session from 'express-session';
 import passport from 'passport';
 import routes from './routes';
+import fileUpload from 'express-fileupload';
 
 const app = express();
 const server = http.createServer(app);
@@ -26,10 +27,10 @@ app.use(logger('dev'));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cors());
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.use(cors());
+// app.use(fileUpload());
 app.use('/api/v1/', routes);
 
 app.use((req, res, next) => {

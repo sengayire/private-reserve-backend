@@ -1,5 +1,7 @@
 import { Router } from 'express';
 import UsersController from '../../controllers/UsersController';
+import UploadController from '../../controllers/UploadController';
+import multerUploads from '../../middlewares/multerUploads';
 // import verifyToken from '../../middlewares/verifyToken';
 // import validateUser from '../../middlewares/validateUser';
 // import checkUpdateUserPermission from '../../middlewares/checkUpdateUserPermission';
@@ -72,6 +74,15 @@ router.post(
   //   validateUser,
   //   checkSignUpPermission,
   UsersController.createAdDetails,
+);
+router.post(
+  '/upload',
+  //   verifyToken,
+  //   verifyAdmin,
+  //   validateUser,
+  //   checkSignUpPermission,
+  multerUploads.array('image', 1),
+  UploadController.upload,
 );
 router.put(
   '/:id/activate/',
