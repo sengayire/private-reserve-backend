@@ -13,7 +13,7 @@ export default {
       },
       advertName: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       tagline: {
         type: Sequelize.STRING,
@@ -21,33 +21,33 @@ export default {
       },
       age: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
       },
       gender: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       email: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       phoneNumber: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
       },
       country: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
         unique: true,
       },
       city: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
         unique: true,
       },
       images: {
-        type: Sequelize.ARRAY(Sequelize.STRING),
-        allowNull: false,
+        type: Sequelize.ARRAY(Sequelize.STRING(1000)),
+        allowNull: true,
         unique: true,
       },
       createdAt: {
