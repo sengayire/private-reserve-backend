@@ -2,97 +2,19 @@ import { Router } from 'express';
 import UsersController from '../../controllers/UsersController';
 import UploadController from '../../controllers/UploadController';
 import multerUploads from '../../middlewares/multerUploads';
-// import verifyToken from '../../middlewares/verifyToken';
-// import validateUser from '../../middlewares/validateUser';
-// import checkUpdateUserPermission from '../../middlewares/checkUpdateUserPermission';
-// import asyncHandler from '../../middlewares/asyncHandler';
-// import AuthLocalController from '../../controllers/AuthLocalController';
-// import isActiveUser from '../../middlewares/isActiveUser';
-// import verifyAdmin from '../../middlewares/verifyAdmin';
-// import checkUpdateUser from '../../middlewares/checkUpdateUser';
-// import checkSignUpPermission from '../../middlewares/checkSignUpPermission';
 
 const router = Router();
 
-// router.put(
-//   '/',
-//   verifyToken,
-//   checkUpdateUserPermission,
-//   validateUser,
-//   checkUpdateUser,
-//   UserController.update
-// ); // update user profile
+router.get('/', UsersController.getAllProfile);
 
-router.get(
-  '/search',
-  // verifyToken,
-  // verifyAdmin,
-  // checkUpdateUserPermission,
-  UsersController.searchEmployee,
-);
-// router.get('/email/confirm/:token', verifyToken, UserController.confirmEmailUpdate); // confirm email update
-// router.get('/authors', verifyToken, asyncHandler(UserController.getAllAuthors));
-router.put(
-  '/:id',
-  // verifyToken,
-  // validateUser,
-  // isActiveUser,
-  // checkUpdateUserPermission,
-  // checkUpdateUser,
-  UsersController.update,
-);
+router.post('/post/about', UsersController.create);
 
-// router.get('/', verifyToken, verifyAdmin, asyncHandler(UserController.getAll));
-// // user followers
-// router.get('/followers', verifyToken, UserController.followers);
-
-// // user following
-// router.get('/following', verifyToken, UserController.following);
-router.delete(
-  '/:id',
-  // verifyToken,
-  // checkUpdateUserPermission,
-  // isActiveUser,
-  UsersController.deleteEmployeeAccount,
-);
-// router.patch('/:username/unfollow', verifyToken, UserController.unfollow);
-
-// router.get('/:id', verifyToken, verifyAdmin, checkUpdateUserPermission, AuthLocalController.getOne);
-router.post(
-  '/post/about',
-  //   verifyToken,
-  //   verifyAdmin,
-  //   validateUser,
-  //   checkSignUpPermission,
-  UsersController.create,
-);
-
-router.post(
-  '/post/details',
-  //   verifyToken,
-  //   verifyAdmin,
-  //   validateUser,
-  //   checkSignUpPermission,
-  UsersController.createAdDetails,
-);
+router.post('/post/details', UsersController.createAdDetails);
 router.post(
   '/upload',
-  //   verifyToken,
-  //   verifyAdmin,
-  //   validateUser,
-  //   checkSignUpPermission,
   multerUploads.array('image', 1),
   UploadController.upload,
 );
-router.put(
-  '/:id/activate/',
-  //  verifyToken,
-  UsersController.activate,
-);
-router.put(
-  '/:id/suspend/',
-  //  verifyToken,
-  UsersController.suspend,
-);
-// router.patch('/:username/follow', verifyToken, isActiveUser, UserController.follow);
+router.put('/:id/activate/', UsersController.activate);
+router.put('/:id/suspend/', UsersController.suspend);
 export default router;

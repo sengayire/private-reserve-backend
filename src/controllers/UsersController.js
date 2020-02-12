@@ -7,13 +7,27 @@ import * as validate from '../helpers/validation';
 export default class UsersController {
   static async create(req, res) {
     const newProfile = await Profile.create(req.body);
-    console.log('profile', req.body);
+    console.log('profile', newProfile);
     return !newProfile.errors
       ? res.status(status.CREATED).json({
           message: `Information saved successfully`,
         })
       : res.status(status.BAD_REQUEST).json({
           error: 'Information have not saved ',
+        });
+  }
+
+  static async getAllProfile(req, res) {
+    const [getProfiles] = await Profile.findAll();
+    const allProfiles = getProfiles.dataValues;
+
+    return !allProfiles.errors
+      ? res.status(status.OK).json({
+          message: 'All profiles',
+          profiles: allProfiles,
+        })
+      : res.status(status.BAD_REQUEST).json({
+          error: 'Unable to retrieve all profiles',
         });
   }
 
@@ -33,7 +47,6 @@ export default class UsersController {
       params: { id },
       user: { email },
     } = req;
-    const condition = id || email;
     const updated = await Employee.update(
       { status: 'active' },
       { email } || { id },
@@ -56,41 +69,6 @@ export default class UsersController {
       : res.status(status.SERVER_ERROR).json({
           error: 'Employee account has not updated',
         });
-  }
-  static async update(req, res) {
-    const { id } = req.params;
-    const updatedEmployee = await Employee.update(req.body, { id });
-
-    if (updatedEmployee.errors) {
-      const errors = checkCreateOrUpdateEmployee(updatedEmployee.errors);
-      return res.status(errors.code).json({ errors: errors.errors });
-    }
-
-    delete updatedEmployee.password;
-
-    return res.status(status.OK).json({
-      message: `Employee information successfully updated.`,
-      user: updatedEmployee,
-    });
-  }
-
-  static async deleteEmployeeAccount(req, res) {
-    const { ids } = req.params;
-    const deleteEmployee = await Employee.deleteEmployee({ id });
-    return deleteEmployee
-      ? res
-          .status(status.OK)
-          .json({ message: `Employee ${id} account has deleted successfully ` })
-      : res
-          .status(status.UNAUTHORIZED)
-          .json({ errors: 'Employee account not deleted' });
-  }
-
-  static async searchEmployee(req, res) {
-    const searchEmployee = await Employee.findOne(req.body);
-    return !searchEmployee.errors && Object.keys(searchEmployee).length
-      ? res.status(status.OK).json({ employee: searchEmployee })
-      : res.status(status.UNAUTHORIZED).json({ errors: 'Employee not found' });
   }
 
   static async signup(req, res) {

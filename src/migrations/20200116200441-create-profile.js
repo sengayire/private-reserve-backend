@@ -38,17 +38,10 @@ export default {
       country: {
         type: Sequelize.STRING,
         allowNull: true,
-        unique: true,
       },
       city: {
         type: Sequelize.STRING,
         allowNull: true,
-        unique: true,
-      },
-      images: {
-        type: Sequelize.ARRAY(Sequelize.STRING(1000)),
-        allowNull: true,
-        unique: true,
       },
       createdAt: {
         allowNull: false,
