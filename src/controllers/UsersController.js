@@ -11,6 +11,7 @@ export default class UsersController {
     return !newProfile.errors
       ? res.status(status.CREATED).json({
           message: `Information saved successfully`,
+          profile: newProfile,
         })
       : res.status(status.BAD_REQUEST).json({
           error: 'Information have not saved ',
@@ -18,9 +19,8 @@ export default class UsersController {
   }
 
   static async getAllProfile(req, res) {
-    const [getProfiles] = await Profile.findAll();
-    const allProfiles = getProfiles.dataValues;
-
+    const getProfiles = await Profile.findAll();
+    const allProfiles = getProfiles.map(profile => profile);
     return !allProfiles.errors
       ? res.status(status.OK).json({
           message: 'All profiles',
@@ -30,12 +30,25 @@ export default class UsersController {
           error: 'Unable to retrieve all profiles',
         });
   }
+  static async getOneProfile(req, res) {
+    const { id } = req.params;
+    const getProfile = await Profile.findOne({ id });
 
+    return !getProfile.errors
+      ? res.status(status.OK).json({
+          message: 'user profile',
+          profile: getProfile,
+        })
+      : res.status(status.BAD_REQUEST).json({
+          error: 'Unable to retrieve profile',
+        });
+  }
   static async createAdDetails(req, res) {
     const adDetails = await Profile.adDetails(req.body);
     return !adDetails.errors
       ? res.status(status.CREATED).json({
           message: `Information saved successfully`,
+          info: adDetails,
         })
       : res.status(status.BAD_REQUEST).json({
           error: 'Information have not saved ',

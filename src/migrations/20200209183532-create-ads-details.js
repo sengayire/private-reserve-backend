@@ -9,6 +9,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         unique: true,
       },
+      profileId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
       bio: {
         type: Sequelize.STRING,
         allowNull: true,
