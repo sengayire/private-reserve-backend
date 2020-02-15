@@ -10,6 +10,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         unique: true,
       },
+      profileId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
       bio: {
         type: DataTypes.STRING,
         allowNull: true,
@@ -65,8 +69,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {},
   );
-  AdsDetails.associate = function(models) {
-    // associations can be defined here
+  AdsDetails.associate = models => {
+    AdsDetails.belongsTo(models.Profile, { foreignKey: 'id' });
   };
   return AdsDetails;
 };

@@ -57,8 +57,12 @@ module.exports = (sequelize, DataTypes) => {
     },
     {},
   );
-  Profile.associate = function(models) {
-    // associations can be defined here
+  Profile.associate = models => {
+    Profile.hasOne(models.AdsDetails, {
+      foreignKey: 'id',
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
+    });
   };
   return Profile;
 };

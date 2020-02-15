@@ -6,6 +6,7 @@ import multerUploads from '../../middlewares/multerUploads';
 const router = Router();
 
 router.get('/', UsersController.getAllProfile);
+router.get('/:id', UsersController.getOneProfile);
 
 router.post('/post/about', UsersController.create);
 
