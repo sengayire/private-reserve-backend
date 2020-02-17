@@ -30,11 +30,12 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.JSON,
         allowNull: true,
       },
-      Affiliation: {
+      affiliation: {
         type: DataTypes.ENUM('Independent', 'Agency'),
+        defaultValue: 'Agency',
         allowNull: true,
       },
-      categories: {
+      specialtyCategories: {
         type: DataTypes.STRING,
         allowNull: true,
       },
@@ -70,7 +71,9 @@ module.exports = (sequelize, DataTypes) => {
     {},
   );
   AdsDetails.associate = models => {
-    AdsDetails.belongsTo(models.Profile, { foreignKey: 'id' });
+    AdsDetails.belongsTo(models.Profile, {
+      foreignKey: 'profileId',
+    });
   };
   return AdsDetails;
 };

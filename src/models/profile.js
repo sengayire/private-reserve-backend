@@ -60,6 +60,7 @@ module.exports = (sequelize, DataTypes) => {
   Profile.associate = models => {
     Profile.hasOne(models.AdsDetails, {
       foreignKey: 'id',
+      as: 'profileInfo',
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE',
     });
