@@ -7,7 +7,6 @@ import * as validate from '../helpers/validation';
 export default class UsersController {
   static async create(req, res) {
     const newProfile = await Profile.create(req.body);
-    console.log('profile', newProfile);
     return !newProfile.errors
       ? res.status(status.CREATED).json({
           message: `Information saved successfully`,
@@ -33,7 +32,7 @@ export default class UsersController {
   static async getOneProfile(req, res) {
     const { id } = req.params;
     const getProfile = await Profile.findOne({ id });
-
+    console.log('profile', getProfile);
     return !getProfile.errors
       ? res.status(status.OK).json({
           message: 'user profile',
@@ -45,6 +44,7 @@ export default class UsersController {
   }
   static async createAdDetails(req, res) {
     const adDetails = await Profile.adDetails(req.body);
+    console.log('profile here', adDetails);
     return !adDetails.errors
       ? res.status(status.CREATED).json({
           message: `Information saved successfully`,

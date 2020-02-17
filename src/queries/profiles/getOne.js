@@ -5,6 +5,13 @@ export default async (condition = {}) => {
       ? await db.Profile.findOne({
           where: condition,
           logging: false,
+
+          include: [
+            {
+              model: db.AdsDetails,
+              as: 'profileInfo',
+            },
+          ],
         })
       : null;
 
