@@ -3,8 +3,7 @@ import { generate as generateToken } from '../../tokens';
 
 dotenv.config();
 
-export default (data) => {
-  console.log('data', data)
+export default data => {
   const message = {};
   const token = generateToken({ email: data.email }, { expiresIn: '1h' });
   const appUrl = process.env.APP_URL_FRONTEND;
@@ -17,4 +16,3 @@ export default (data) => {
 <a href='${link}' style="margin:35px 0;padding:15px 35px;background:#266cef;color:#ffffff;clear:both;border-radius:30px;text-decoration:none" target='_blank'>Reset password Now</a></p>`;
   return message;
 };
-
